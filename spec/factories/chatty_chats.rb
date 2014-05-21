@@ -1,11 +1,9 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :chatty_chat, :class => 'Chat' do
-    user_type "MyString"
-    user_id 1
-    resource_type "MyString"
-    resource_id 1
+  factory :chatty_chat, :class => 'Chatty::Chat' do
+    association :user, :factory => :user
+    association :resource, :factory => :user
     handled false
   end
 end

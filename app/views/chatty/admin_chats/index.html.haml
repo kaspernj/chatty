@@ -1,0 +1,22 @@
+%h1= _("Chats")
+
+= simple_search_form_for @ransack, @ransack_params do |f|
+  = f.input :handled_eq, :as => :select, :collection => {_("Not handled") => "", _("Handled") => "1"}
+  = f.submit _("Search")
+
+%table
+  %thead
+    %tr
+      %th= Chatty::Chat.human_attribute_name(:id)
+      %th= Chatty::Chat.human_attribute_name(:handled)
+      %th= Chatty::Chat.human_attribute_name(:created_at)
+  %tbody
+    - @chats.each do |chat|
+      %tr
+        %td= link_to chat.id, admin_chat_path(chat)
+        %td= chat.handled? ? _("Yes") : _("No")
+        %td= l(chat.created_at, :format => :long)
+    - if @chats.none?
+      %tr
+        %td{:colspan => 3}
+          = _("No chats was found.")

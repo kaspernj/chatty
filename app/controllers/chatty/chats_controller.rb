@@ -1,20 +1,24 @@
 require_dependency "chatty/application_controller"
 
-class Chatty::ChatsController < ApplicationController
-  before_action :set_chat, only: [:show, :edit, :update, :destroy]
+class Chatty::ChatsController < Chatty::ApplicationController
+  before_action :set_chat, only: [:show, :edit, :update, :destroy, :messages]
 
   # GET /chats
   def index
-    @chats = Chat.all
+    @chats = Chatty::Chat.all
   end
 
   # GET /chats/1
   def show
+    respond_to do |format|
+      format.json { render(:json => {:chat => {:id => @chat.id, :handled => @chat.handled}}) }
+      format.html { render :show }
+    end
   end
 
   # GET /chats/new
   def new
-    @chat = Chat.new
+    @chat = Chatty::Chat.new
   end
 
   # GET /chats/1/edit
@@ -23,7 +27,7 @@ class Chatty::ChatsController < ApplicationController
 
   # POST /chats
   def create
-    @chat = Chat.new(chat_params)
+    @chat = Chatty::Chat.new(chat_params)
 
     if @chat.save
       redirect_to @chat, notice: 'Chat was successfully created.'
@@ -46,11 +50,16 @@ class Chatty::ChatsController < ApplicationController
     @chat.destroy
     redirect_to chats_url, notice: 'Chat was successfully destroyed.'
   end
+  
+  def messages
+    @messages = @chat.messages
+    render :partial => "messages", :layout => false
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_chat
-      @chat = Chat.find(params[:id])
+      @chat = Chatty::Chat.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -1,3 +1,3 @@
-class Chatty::ApplicationController < ActionController::Base
+class Chatty::ApplicationController < ApplicationController
   
 end

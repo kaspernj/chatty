@@ -2,11 +2,20 @@
 <html>
 <head>
   <title>Dummy</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<div>
+  <%= link_to _("Admin chats"), chatty.admin_chats_path %>
+  <% if signed_in? %>
+    <%= link_to _("Log out"), destroy_user_session_path, :method => :delete %>
+  <% else %>
+    <%= link_to _("Log in"), new_user_session_path %>
+  <% end %>
+</div>
 
 <%= yield %>
 
