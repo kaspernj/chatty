@@ -8,8 +8,8 @@
 </head>
 <body>
 
-<div>
-  <%= link_to _("Admin chats"), chatty.admin_chats_path %>
+<div class="main_menu">
+  <%= link_to _("Chats"), chatty.chats_path %>
   <% if signed_in? %>
     <%= link_to _("Log out"), destroy_user_session_path, :method => :delete %>
   <% else %>

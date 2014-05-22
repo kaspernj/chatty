@@ -1,0 +1,19 @@
+/*
+ *= require_self
+ *= require_tree .
+*/
+
+.chatty_messages {
+  width: 350px;
+  height: 300px;
+  overflow-y: scroll;
+  border: 1px solid grey;
+}
+
+.chatty_message {
+  margin-bottom: 20px;
+}
+
+.chatty_form, .chatty_not_signed_in_error {
+  margin-bottom: 15px;
+}

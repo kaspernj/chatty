@@ -4,16 +4,19 @@ source "https://rubygems.org"
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
 gemspec
-gem "simple_form_ransack", :path => "/home/kaspernj/Dev/Rails/simple_form_ransack"
-gem "plugin_migrator", :path => "/home/kaspernj/Dev/Rails/plugin_migrator"
-gem "gettext_simple_rails", :path => "/home/kaspernj/Dev/Rails/gettext_simple_rails"
+gem "simple_form_ransack", ">= 0.0.3"
+gem "plugin_migrator", ">= 0.0.1"
+gem "gettext_simple_rails", ">= 0.0.12"
 gem "jquery-rails"
 gem "devise"
 gem "simple_form"
 gem "ransack"
 gem "public_activity"
 gem "haml-rails"
-gem "coffee-rails", ">= 4.0.0"
+gem "coffee-rails"
+gem "sass-rails"
+gem "state_machine"
+gem "cancan"
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or

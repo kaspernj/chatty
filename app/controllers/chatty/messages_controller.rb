@@ -22,7 +22,7 @@ class Chatty::MessagesController < Chatty::ApplicationController
   def index
     @ransack_params = params[:q] || {}
     @ransack = Chatty::Message.ransack(@ransack_params)
-    @messages = @ransack.result.order(:id).reverse_order
+    @messages = @ransack.result.order(:created_at, :id)
     
     respond_to do |format|
       format.json { render(:json => {:messages => @messages.map{ |message| message.json } }) }

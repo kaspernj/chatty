@@ -1,31 +1,28 @@
 require_dependency "chatty/application_controller"
 
 class Chatty::ChatsController < Chatty::ApplicationController
-  before_action :set_chat, only: [:show, :edit, :update, :destroy, :messages]
-
-  # GET /chats
+  before_action :set_chat, only: [:show, :edit, :update, :destroy, :messages, :handle, :close]
+  
   def index
-    @chats = Chatty::Chat.all
+    @ransack_params = params[:q] || {}
+    @ransack = Chatty::Chat.ransack(@ransack_params.clone)
+    @chats = @ransack.result.order(:id).reverse_order
   end
-
-  # GET /chats/1
+  
   def show
     respond_to do |format|
-      format.json { render(:json => {:chat => {:id => @chat.id, :handled => @chat.handled}}) }
+      format.json { render(:json => {:chat => @chat.json}) }
       format.html { render :show }
     end
   end
-
-  # GET /chats/new
+  
   def new
     @chat = Chatty::Chat.new
   end
-
-  # GET /chats/1/edit
+  
   def edit
   end
-
-  # POST /chats
+  
   def create
     @chat = Chatty::Chat.new(chat_params)
 
@@ -35,8 +32,7 @@ class Chatty::ChatsController < Chatty::ApplicationController
       render action: 'new'
     end
   end
-
-  # PATCH/PUT /chats/1
+  
   def update
     if @chat.update(chat_params)
       redirect_to @chat, notice: 'Chat was successfully updated.'
@@ -44,8 +40,7 @@ class Chatty::ChatsController < Chatty::ApplicationController
       render action: 'edit'
     end
   end
-
-  # DELETE /chats/1
+  
   def destroy
     @chat.destroy
     redirect_to chats_url, notice: 'Chat was successfully destroyed.'
@@ -55,15 +50,27 @@ class Chatty::ChatsController < Chatty::ApplicationController
     @messages = @chat.messages
     render :partial => "messages", :layout => false
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chat
-      @chat = Chatty::Chat.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def chat_params
-      params.require(:chat).permit(:user_type, :user_id, :resource_type, :resource_id, :handled)
-    end
+  
+  def handle
+    @chat.handle
+    @chat.create_activity :key => "chatty/chat.handled", :owner => current_user
+    redirect_to chat_path(@chat)
+  end
+  
+  def close
+    @chat.close
+    @chat.create_activity :key => "chatty/chat.closed", :owner => current_user
+    redirect_to chat_path(@chat)
+  end
+  
+private
+  
+  def set_chat
+    @chat = Chatty::Chat.find(params[:id])
+    authorize! action_name.to_sym, @chat
+  end
+  
+  def chat_params
+    params.require(:chat).permit(:user_type, :user_id, :resource_type, :resource_id)
+  end
 end

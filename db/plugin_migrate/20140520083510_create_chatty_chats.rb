@@ -5,7 +5,7 @@ class CreateChattyChats < ActiveRecord::Migration
       t.integer :user_id
       t.string :resource_type
       t.integer :resource_id
-      t.boolean :handled
+      t.string :state
 
       t.timestamps
     end

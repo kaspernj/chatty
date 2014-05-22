@@ -1,7 +1,7 @@
 %h1= _("Chats")
 
 = simple_search_form_for @ransack, @ransack_params do |f|
-  = f.input :handled_eq, :as => :select, :collection => {_("Not handled") => "", _("Handled") => "1"}
+  = f.input :state_eq, :as => :select, :collection => Chatty::Chat.translated_states
   = f.submit _("Search")
 
 %table
@@ -13,7 +13,7 @@
   %tbody
     - @chats.each do |chat|
       %tr
-        %td= link_to chat.id, admin_chat_path(chat)
+        %td= link_to chat.id, chat_path(chat)
         %td= chat.handled? ? _("Yes") : _("No")
         %td= l(chat.created_at, :format => :long)
     - if @chats.none?

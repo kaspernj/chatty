@@ -1,0 +1,9 @@
+%h1= _("Show chat")
+
+= chatty_chat(@chat)
+
+- if @chat.can_handle? && can?(:handle, @chat)
+  = link_to _("Handle"), handle_chat_path(@chat), :method => :post, :data => {:confirm => _("Are you sure?")}
+
+- if @chat.can_close? && can?(:close, @chat)
+  = link_to _("Close"), close_chat_path(@chat), :method => :post, :data => {:confirm => _("Are you sure?")}
