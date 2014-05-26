@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/kaspernj/chatty.png)](https://codeclimate.com/github/kaspernj/chatty)
+
 # Chatty
 
 ## Install
