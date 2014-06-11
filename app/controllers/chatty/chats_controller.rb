@@ -52,7 +52,7 @@ class Chatty::ChatsController < Chatty::ApplicationController
   end
   
   def handle
-    @chat.handle
+    @chat.handle!
     @chat.create_activity :key => "chatty/chat.handled", :owner => current_user
     redirect_to chat_path(@chat)
   end
