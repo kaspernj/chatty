@@ -25,7 +25,7 @@ class Chatty::MessagesController < Chatty::ApplicationController
     @messages = @ransack.result.order(:created_at, :id)
     
     respond_to do |format|
-      format.json { render(:json => {:messages => @messages.map{ |message| message.json } }) }
+      format.json { render(:json => {:messages => messages_json(@messages)}) }
     end
   end
   
@@ -44,5 +44,19 @@ private
   
   def message_params
     params.require(:message).permit(:chat_id, :message)
+  end
+  
+  def messages_json messages
+    @messages.map do |message|
+      message_json = message.json
+      
+      if message.user == current_user
+        message_json[:self] = true
+      else
+        message_json[:self] = false
+      end
+      
+      message_json
+    end
   end
 end

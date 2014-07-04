@@ -9,7 +9,8 @@ class Chatty::Message < ActiveRecord::Base
     return {
       :id => id,
       :message => message,
-      :author_name => (user[:name].presence || user[:email].presence || user.id),
+      :user_id => user.id,
+      :user_name => (user[:name].presence || user[:email].presence || user.id),
       :created_at => created_at.strftime("%Y-%m-%d %H:%M:%S")
     }
   end

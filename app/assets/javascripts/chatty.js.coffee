@@ -30,21 +30,18 @@ $ ->
     })
     chat.prepend(error)
     
-    chatty_handled(chat, ->
-      chatty_init_messages(chat, ->
-        chatty_init_form(chat, ->
+    chatty_handled chat, ->
+      chatty_init_messages chat, ->
+        chatty_init_form chat, ->
           chatty_refresh_messages(chat)
           chatty_check_new_messages(chat)
-        )
-      )
-    )
   
   chatty_check_new_messages = (chat) ->
     setTimeout((->
       chatty_refresh_messages(chat)
       
       # Handle changed chat state.
-      chatty_with_state(chat, (data) ->
+      chatty_with_state chat, (data) ->
         if data.chat.state != "handled"
           chatty_hide_form() unless chatty_form_hidden()
         else
@@ -54,7 +51,6 @@ $ ->
           chatty_show_not_allowed_to_add_messages() if chatty_not_allowed_to_add_messages_hidden()
         else
           chatty_hide_not_allowed_to_add_messages() unless chatty_not_allowed_to_add_messages_hidden()
-      )
       
       chatty_check_new_messages(chat)
     ), 1000)
@@ -108,14 +104,13 @@ $ ->
     chat.data("last-message-id", 0)
     messages_container = $(".chatty_messages", chat)
     messages_container.html("")
-    messages_container.slideDown("fast", ->
+    messages_container.slideDown "fast", ->
       $.ajax({type: "GET", url: "/chatty/messages/?q[chat_id_eq]=" + chat.data("chat-id"), cache: false, async: true, dataType: "json", success: (data) ->
         for message in data.messages
           chatty_add_message(chat, message)
         
         callback.call()
       })
-    )
   
   chatty_add_message = (chat, message) ->
     msg_id = parseInt(message.id)
@@ -129,21 +124,27 @@ $ ->
     messages_container = $(".chatty_messages", chat)
     message_class = "chatty_message_" + msg_id
     
+    if message.self
+      self_class = "chatty_message_self"
+    else
+      self_class = "chatty_message_other"
+    
     container = $("<div />", {
-      "class": "chatty_message " + message_class,
+      "class": "chatty_message " + message_class + " " + self_class,
       "data": {
-        "message_id": message.id
+        "message_id": message.id,
+        "self": message.self
       },
       "css": {
         "display": "none"
       }
     })
     
-    author_div = $("<div />", {
-      "class": "chatty_message_author",
-      "text": message.author_name
+    user_div = $("<div />", {
+      "class": "chatty_message_user",
+      "text": message.user_name
     })
-    container.append(author_div)
+    container.append(user_div)
     
     message_div = $("<div />", {
       "class": "chatty_message_message",
