@@ -1,4 +1,4 @@
 = simple_form_for @message, :remote => true do |f|
   = f.input :chat_id, :as => :hidden
   = f.input :message, :as => :string
-  = f.submit
+  = f.submit class: "chatty_send_msg"
