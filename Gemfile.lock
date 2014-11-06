@@ -183,7 +183,6 @@ DEPENDENCIES
   gettext_simple_rails (>= 0.0.12)
   haml-rails
   jquery-rails
-  plugin_migrator (>= 0.0.1)
   public_activity
   ransack
   rspec-rails
