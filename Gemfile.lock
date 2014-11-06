@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    chatty (0.0.4)
+    chatty (0.0.5)
       cancan
       devise
       gettext_simple_rails (>= 0.0.12)
@@ -192,6 +192,7 @@ DEPENDENCIES
   gettext_simple_rails (>= 0.0.12)
   haml-rails
   jquery-rails
+  plugin_migrator
   public_activity
   ransack
   rspec-rails
