@@ -47,6 +47,8 @@ GEM
     bcrypt (3.1.7)
     builder (3.1.4)
     cancan (1.6.10)
+    codeclimate-test-reporter (0.4.1)
+      simplecov (>= 0.7.1, < 1.0.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -61,6 +63,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     erubis (2.7.0)
     execjs (2.0.2)
     factory_girl (4.4.0)
@@ -148,6 +151,11 @@ GEM
       activemodel (~> 4.0)
     simple_form_ransack (0.0.3)
       rails (~> 4.0.5)
+    simplecov (0.9.1)
+      docile (~> 1.1.0)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     sprockets (2.12.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -176,6 +184,7 @@ PLATFORMS
 DEPENDENCIES
   cancan
   chatty!
+  codeclimate-test-reporter
   coffee-rails
   devise
   factory_girl_rails
