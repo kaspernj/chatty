@@ -4,6 +4,7 @@ archive: true
 rvm:
   - 2.1.2
 before_script:
+  - pwd
   - RAILS_ENV=test bundle exec rake db:migrate
   - cd dummy; RAILS_ENV=test bundle exec rake plugin_migrator:migrate
 script:
