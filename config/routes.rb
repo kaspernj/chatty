@@ -1,9 +1,15 @@
 Chatty::Engine.routes.draw do
-  resources :chats do
-    get :messages, :on => :member
-    post :handle, :on => :member
-    post :close, :on => :member
+  namespace :admin do
+    resources :chats
   end
-  
+
+  resources :chats do
+    member do
+      get :messages
+      post :handle
+      post :close
+    end
+  end
+
   resources :messages
 end
