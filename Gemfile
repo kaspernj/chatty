@@ -5,7 +5,6 @@ source "https://rubygems.org"
 # development dependencies will be added by default to the :development group.
 gemspec
 gem "simple_form_ransack", ">= 0.0.3"
-gem "plugin_migrator", ">= 0.0.1"
 gem "gettext_simple_rails", ">= 0.0.12"
 gem "jquery-rails"
 gem "devise"

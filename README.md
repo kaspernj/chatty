@@ -1,4 +1,6 @@
+[![Build Status](https://api.shippable.com/projects/540e7b9a3479c5ea8f9ec203/badge?branchName=master)](https://app.shippable.com/projects/540e7b9a3479c5ea8f9ec203/builds/latest)
 [![Code Climate](https://codeclimate.com/github/kaspernj/chatty.png)](https://codeclimate.com/github/kaspernj/chatty)
+[![Test Coverage](https://codeclimate.com/github/kaspernj/chatty/badges/coverage.svg)](https://codeclimate.com/github/kaspernj/chatty)
 
 # Chatty
 
