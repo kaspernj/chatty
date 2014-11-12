@@ -16,6 +16,7 @@ gem "coffee-rails"
 gem "sass-rails"
 gem "state_machine"
 gem "cancan"
+gem "plugin_migrator", ">= 0.0.2"
 
 gem "codeclimate-test-reporter", group: :test, require: nil
 
